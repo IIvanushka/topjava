@@ -39,7 +39,7 @@ public class UserMealsUtil {
             currentDate = userMeal.getDateTime().toLocalDate();
             currentTime = userMeal.getDateTime().toLocalTime();
 
-            if ((currentTime.isAfter(startTime)) && (currentTime.isBefore(endTime))) {
+            if (TimeUtil.isBetween(currentTime,startTime,endTime)) {
                 filteredMealList.add(userMeal);
             }
 
@@ -56,5 +56,4 @@ public class UserMealsUtil {
 
         return userMealWithExceeds;
     }
-
 }
