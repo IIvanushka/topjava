@@ -91,56 +91,8 @@
 </table>
 <h2> Добавить/изменить приём пищи </h2>
 <table>
-    <tr>
-        <td>ID</td>
-        <td><label>
-            <input name="ID" type="text" readonly>
-        </label></td>
-    </tr>
-    <tr>
-        <td>Дата</td>
-        <td><label>
-            <input datafld="date" type="text" value="<fmt:formatDate value="<%= new java.util.Date()%>" pattern="yyyy-MM-dd HH:mm"/>">
-        </label></td>
-    </tr>
-    <tr>
-        <td>Описание</td>
-        <td><label>
-            <input datafld="desc" type="text">
-        </label></td>
-    </tr>
-    <tr>
-        <td>Калории</td>
-        <td><label>
-            <input datafld="cal" type="text">
-        </label></td>
-    </tr>
-    <tr>
-        <td>
-            <form id="form1" method="post" action="meals">
-                <input type="SUBMIT" name="Add" value="ADD"/>
-            </form>
-        </td>
-    </tr>
 
 </table>
-<form action="meals" method="post">
-    Пользователь: <input datafld="user" type="text" name="user" size="10"><br>
-    Пароль: <input type="password" name="password" size="10"><br>
-    Email: <input type="text" name="email"><br>
-    Адрес: <input type="text" name="address"><br>
-    Телефон: <input type="text" name="phone"><br>
-    <p>
-    <table>
-        <tr>
-            <th><small>
-                <input type="submit" name="save" value="Сохранить">
-            </small>
-            <th><small>
-                <input type="submit" name="cancel" value="Выйти">
-            </small>
-    </table>
-</form>
 
 
 </body>
