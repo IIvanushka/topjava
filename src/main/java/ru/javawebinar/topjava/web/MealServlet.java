@@ -38,7 +38,7 @@ public class MealServlet extends HttpServlet {
 
             log.debug("Redirecting to Meals table.");
 
-            List<MealWithExceed> mealWithExceeds = dbMock.getAllMeals();
+            List<MealWithExceed> mealWithExceeds = dbMock.getAllMealsWE();
 
             req.setAttribute("mealWithExceeds", mealWithExceeds);
 
