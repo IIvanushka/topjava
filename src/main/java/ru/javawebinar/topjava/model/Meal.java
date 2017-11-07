@@ -8,19 +8,17 @@ public class Meal {
 
     private final Long id;
 
-    private static Long counter = 1L;
-
     private final LocalDateTime dateTime;
 
     private final String description;
 
     private final int calories;
 
-    public Meal(LocalDateTime dateTime, String description, int calories) {
+    public Meal(Long id, LocalDateTime dateTime, String description, int calories) {
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
-        this.id = counter++;
+        this.id = id;
     }
 
     public LocalDateTime getDateTime() {
