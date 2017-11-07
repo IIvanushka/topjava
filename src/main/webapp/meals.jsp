@@ -1,4 +1,3 @@
-<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: Johnson
@@ -33,7 +32,7 @@
             background-color: #fff;
         }
         .tg .false {
-            color: blue;
+            color: black;
             border-collapse: collapse;
             border-spacing: 0;
             font-family: Arial, sans-serif;
@@ -70,6 +69,7 @@
         <th width="150">Дата</th>
         <th width="150">Описание</th>
         <th width="150">Калории</th>
+        <th width="150">Действие</th>
     </tr>
 
     <c:forEach items="${mealWithExceeds}" var="meal">
@@ -79,6 +79,7 @@
                 <fmt:formatDate value="${time}" pattern="yyyy-MM-dd HH:mm"/></td>
             <td width="150">${meal.description}</td>
             <td width="150">${meal.calories}</td>
+            <td width="150"><a href="meals?action=delete&mealId=<c:out value="${meal.id}"/>">Удалить</a></td>
         </tr>
     </c:forEach>
 </table>
