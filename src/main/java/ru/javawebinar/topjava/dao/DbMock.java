@@ -43,7 +43,7 @@ public class DbMock {
         map.put(meal.getId(),meal);
     }
 
-    public void deleteMealbyId(Long id){
+    public void deleteMealById(Long id){
         map.remove(id);
     }
 

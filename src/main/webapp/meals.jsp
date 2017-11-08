@@ -85,15 +85,14 @@
                 <fmt:formatDate value="${time}" pattern="yyyy-MM-dd HH:mm"/></td>
             <td width="150">${meal.description}</td>
             <td width="150">${meal.calories}</td>
-            <td width="150"><a href="meals?action=delete&mealId=<c:out value="${meal.id}"/>">Удалить</a></td>
+            <td width="150"><a href="meals?action=delete&mealId=<c:out value="${meal.id}"/>">Удалить</a>
+                <a href="meals?action=update&mealId=<c:out value="${meal.id}"/>">Обновить</a>
+            </td>
         </tr>
     </c:forEach>
 </table>
-<h2> Добавить/изменить приём пищи </h2>
-<table>
-
-</table>
-
-
+<form action="aumeals.jsp" method="get">
+    <input type="submit" value="ADD NEW">
+</form>
 </body>
 </html>
