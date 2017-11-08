@@ -31,14 +31,14 @@ public class MealServlet extends HttpServlet {
         String action = req.getParameter("action");
         if (action != null) {
             switch (action) {
-                case "delete" : {
+                case "delete": {
                     dbMock.deleteMealById(Long.parseLong(req.getParameter("mealId")));
                     log.debug("Deleting meal with ID = " + Long.parseLong(req.getParameter("mealId")));
                     resp.sendRedirect("meals");
                     break;
                 }
-                case "update" : {
-                    Meal meal = dbMock.getMealbyId(Long.parseLong(req.getParameter("mealId")));
+                case "update": {
+                    Meal meal = dbMock.getMealById(Long.parseLong(req.getParameter("mealId")));
                     req.setAttribute("meal", meal);
                     log.debug("Open update form for " + meal);
 
@@ -60,11 +60,12 @@ public class MealServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
         String id = req.getParameter("id");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         if (id == null || id.isEmpty()) {
-            Meal meal = new Meal(dbMock.getAllMeals().size() + 1L,
+            Meal meal = new Meal(dbMock.getNextId(),
                     LocalDateTime.parse(req.getParameter("dateTime").trim(), formatter), req.getParameter("description"),
                     Integer.parseInt(req.getParameter("calories")));
             dbMock.addMeal(meal);

@@ -8,10 +8,7 @@ import ru.javawebinar.topjava.util.MealsUtil;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -35,26 +32,32 @@ public class DbMock {
         return instance;
     }
 
-    public Meal getMealbyId(Long id){
+    public Long getNextId() {
+        return Collections.max(map.keySet()) + 1L;
+    }
+
+    public Meal getMealById(Long id) {
         return map.get(id);
     }
 
-    public void addMeal(Meal meal){
-        map.put(meal.getId(),meal);
+    public void addMeal(Meal meal) {
+        map.put(meal.getId(), meal);
+        log.debug("Adding to DB " + meal);
     }
 
-    public void deleteMealById(Long id){
+    public void deleteMealById(Long id) {
         map.remove(id);
     }
 
-    public List<Meal> getAllMeals(){
+    public List<Meal> getAllMeals() {
         List<Meal> result = new ArrayList<>();
         map.forEach((key, value) -> {
             result.add(value);
         });
         return result;
     }
-    public List<MealWithExceed> getAllMealsWE(){
+
+    public List<MealWithExceed> getAllMealsWE() {
         return MealsUtil.getFilteredWithExceeded(getAllMeals(), LocalTime.of(0, 0), LocalTime.of(23, 59), 2000);
     }
 
@@ -70,7 +73,6 @@ public class DbMock {
 
         meals.forEach(meal -> {
             addMeal(meal);
-            log.debug("Adding to DB "+meal);
         });
     }
 }
