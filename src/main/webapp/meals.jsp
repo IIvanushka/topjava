@@ -1,4 +1,4 @@
-<%--
+<%@ page import="ru.javawebinar.topjava.util.TimeUtil" %><%--
   Created by IntelliJ IDEA.
   User: Johnson
   Date: 06.11.2017
@@ -10,7 +10,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%--<jsp:useBean id="meal" class="ru.javawebinar.topjava.model.Meal"/>--%>
 
 <html>
 <head>
@@ -79,10 +78,12 @@
     </tr>
 
     <c:forEach items="${mealWithExceeds}" var="meal">
+        <jsp:useBean id="meal" scope="page" class="ru.javawebinar.topjava.model.MealWithExceed"/>
         <tr class="${meal.exceed}">
-            <td width="150"><fmt:parseDate value="${meal.dateTime}" pattern="yyyy-MM-dd'T'HH:mm" var="time"
-                                           type="both"/>
-                <fmt:formatDate value="${time}" pattern="yyyy-MM-dd HH:mm"/></td>
+            <%--<td width="150"><fmt:parseDate value="${meal.dateTime}" pattern="yyyy-MM-dd'T'HH:mm" var="time"--%>
+                                           <%--type="both"/>--%>
+                <%--<fmt:formatDate value="${time}" pattern="yyyy-MM-dd HH:mm"/></td>--%>
+            <td><%=TimeUtil.toString(meal.getDateTime())%></td>
             <td width="150">${meal.description}</td>
             <td width="150">${meal.calories}</td>
             <td width="150"><a href="meals?action=delete&mealId=<c:out value="${meal.id}"/>">Удалить</a>

@@ -10,13 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
 import ru.javawebinar.topjava.dao.DbMock;
 import ru.javawebinar.topjava.model.Meal;
-import ru.javawebinar.topjava.model.MealWithExceed;
 
 
 public class MealServlet extends HttpServlet {
@@ -50,9 +48,7 @@ public class MealServlet extends HttpServlet {
 
             log.debug("Redirecting to Meals table.");
 
-            List<MealWithExceed> mealWithExceeds = dbMock.getAllMealsWE();
-
-            req.setAttribute("mealWithExceeds", mealWithExceeds);
+            req.setAttribute("mealWithExceeds", dbMock.getAllMealsWE());
 
             req.getRequestDispatcher("/meals.jsp").forward(req, resp);
         }
