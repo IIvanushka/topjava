@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class Meal extends AbstractBaseEntity implements Comparable<Meal>{
-    private Integer id;
 
     private Integer userId;
 
