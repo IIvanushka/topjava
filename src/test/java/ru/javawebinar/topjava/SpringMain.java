@@ -17,12 +17,13 @@ import java.util.List;
 public class SpringMain {
     public static void main(String[] args) {
         // java 7 Automatic resource management
-        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
+        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("classpath:spring/spring-app.xml", "classpath:spring/spring-db.xml")) {
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
-            AdminRestController adminUserController = appCtx.getBean(AdminRestController.class);
-            adminUserController.create(new User(null, "userName", "email", "password", Role.ROLE_ADMIN));
-            System.out.println();
+//            AdminRestController adminUserController = appCtx.getBean(AdminRestController.class);
+//            adminUserController.create(new User(null, "userName", "email", "password", Role.ROLE_ADMIN));
+//            System.out.println();
 
+            AuthorizedUser.setId(100000);
             MealRestController mealController = appCtx.getBean(MealRestController.class);
             List<MealWithExceed> filteredMealsWithExceeded =
                     mealController.getBetween(
