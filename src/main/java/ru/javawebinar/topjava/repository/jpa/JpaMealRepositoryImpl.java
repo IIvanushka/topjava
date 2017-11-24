@@ -21,13 +21,13 @@ public class JpaMealRepositoryImpl implements MealRepository {
     @Override
     public Meal save(Meal meal, int userId) {
         if (meal.isNew()) {
-            meal.setUser(em.find(User.class, userId));
+            meal.setUser(em.getReference(User.class, userId));
             em.persist(meal);
             return meal;
         } else {
-            Meal mealExpected = em.find(Meal.class, meal.getId());
+            Meal mealExpected = em.getReference(Meal.class, meal.getId());
             if (mealExpected.getUser().getId() == userId){
-                meal.setUser(em.find(User.class, userId));
+                meal.setUser(em.getReference(User.class, userId));
                 return em.merge(meal);
             }
             return null;
