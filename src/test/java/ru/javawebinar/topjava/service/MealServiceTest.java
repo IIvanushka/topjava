@@ -1,7 +1,13 @@
 package ru.javawebinar.topjava.service;
 
+import org.junit.AfterClass;
+import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.*;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -14,7 +20,11 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import static org.slf4j.LoggerFactory.getLogger;
 import static ru.javawebinar.topjava.MealTestData.*;
 import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
 import static ru.javawebinar.topjava.UserTestData.USER_ID;
@@ -31,8 +41,41 @@ public class MealServiceTest {
         SLF4JBridgeHandler.install();
     }
 
+    private static final Logger log = getLogger(MealServiceTest.class);
+    private Date start;
+    private static Map<String, Long> summary = new HashMap<>();
+
+
     @Autowired
     private MealService service;
+
+    @Rule
+    public final TestRule globalTimeout = Timeout.millis(1000);
+
+    @ClassRule
+    public static TestName testName = new TestName();
+
+    @AfterClass
+    public static void doAfter(){
+        summary.forEach((name, time) -> log.debug(name + " - " + time));
+    }
+
+    @Rule
+    public TestWatcher watcher = new TestWatcher() {
+
+
+        @Override
+        protected void starting(Description description) {
+            start = new Date();
+        }
+
+        @Override
+        protected void finished(Description description) {
+            Date stop = new Date();
+            log.debug("Total time " + (stop.getTime() - start.getTime()) + "ms.");
+            summary.put(description.getMethodName(), stop.getTime() - start.getTime());
+        }
+    };
 
     @Test
     public void testDelete() throws Exception {
@@ -40,8 +83,11 @@ public class MealServiceTest {
         MealTestData.assertMatch(service.getAll(USER_ID), MEAL6, MEAL5, MEAL4, MEAL3, MEAL2);
     }
 
-    @Test(expected = NotFoundException.class)
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+    @Test
     public void testDeleteNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
         service.delete(MEAL1_ID, 1);
     }
 
