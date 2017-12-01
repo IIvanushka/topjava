@@ -49,11 +49,11 @@ public class MealServiceTest {
     @Autowired
     private MealService service;
 
-    @Rule
-    public final TestRule globalTimeout = Timeout.millis(1000);
+//    @Rule
+//    public final TestRule globalTimeout = Timeout.millis(1000);
 
-    @ClassRule
-    public static TestName testName = new TestName();
+//    @ClassRule
+//    public static TestName testName = new TestName();
 
     @AfterClass
     public static void doAfter(){
