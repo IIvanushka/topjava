@@ -18,12 +18,6 @@ import static ru.javawebinar.topjava.UserTestData.*;
 
 public abstract class UserServiceTest extends ServiceTest{
 
-    static {
-        // Only for postgres driver logging
-        // It uses java.util.logging and logged via jul-to-slf4j bridge
-        SLF4JBridgeHandler.install();
-    }
-
     @Autowired
     private UserService service;
 

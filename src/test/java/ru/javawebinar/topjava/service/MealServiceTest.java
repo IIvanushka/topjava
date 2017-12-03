@@ -7,7 +7,6 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.Stopwatch;
 import org.junit.runner.Description;
 import org.slf4j.Logger;
-import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
@@ -39,11 +38,6 @@ public abstract class MealServiceTest extends ServiceTest{
             log.info(result + " ms\n");
         }
     };
-
-    static {
-        // needed only for java.util.logging (postgres driver)
-        SLF4JBridgeHandler.install();
-    }
 
     @AfterClass
     public static void printResult() {
