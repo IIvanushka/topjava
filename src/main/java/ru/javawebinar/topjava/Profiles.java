@@ -7,6 +7,8 @@ public class Profiles {
             DATAJPA = "datajpa";
 
     public static final String REPOSITORY_IMPLEMENTATION = DATAJPA;
+//    public static final String REPOSITORY_IMPLEMENTATION = JPA;
+//    public static final String REPOSITORY_IMPLEMENTATION = JDBC;
 
     public static final String
             POSTGRES_DB = "postgres",
@@ -25,5 +27,9 @@ public class Profiles {
                 throw new IllegalStateException("Could not find DB driver");
             }
         }
+    }
+
+    public static String getRepositoryImplementation(){
+        return REPOSITORY_IMPLEMENTATION;
     }
 }
