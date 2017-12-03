@@ -6,7 +6,7 @@ public class Profiles {
             JPA = "jpa",
             DATAJPA = "datajpa";
 
-    public static final String REPOSITORY_IMPLEMENTATION = DATAJPA;
+//    public static final String REPOSITORY_IMPLEMENTATION = DATAJPA;
 //    public static final String REPOSITORY_IMPLEMENTATION = JPA;
 //    public static final String REPOSITORY_IMPLEMENTATION = JDBC;
 
@@ -29,7 +29,13 @@ public class Profiles {
         }
     }
 
-    public static String getRepositoryImplementation(){
-        return REPOSITORY_IMPLEMENTATION;
+    public static String getDataJpaRepositoryImplementation(){
+        return DATAJPA;
+    }
+    public static String getJpaRepositoryImplementation(){
+        return JPA;
+    }
+    public static String getJdbcRepositoryImplementation(){
+        return JDBC;
     }
 }
