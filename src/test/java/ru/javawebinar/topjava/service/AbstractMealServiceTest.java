@@ -1,11 +1,14 @@
 package ru.javawebinar.topjava.service;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Categories;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.jdbc.JdbcTestUtils;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
+import java.sql.JDBCType;
 import java.time.LocalDate;
 import java.time.Month;
 
