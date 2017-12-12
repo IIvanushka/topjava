@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.service.UserService;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 import java.util.Objects;
 
 import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalDate;
@@ -31,8 +33,23 @@ public class RootController {
     @Autowired
     private MealRestController mealController;
 
+    @Autowired
+    private SessionLocaleResolver localeResolver;
+
     @GetMapping("/")
     public String root() {
+        return "index";
+    }
+
+    @GetMapping("/langeng")
+    public String eng(){
+        localeResolver.setDefaultLocale(Locale.ENGLISH);
+        return "index";
+    }
+
+    @GetMapping("/langrus")
+    public String rus(){
+        localeResolver.setDefaultLocale(Locale.forLanguageTag("ru"));
         return "index";
     }
 
