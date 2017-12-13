@@ -50,12 +50,16 @@
 
     <beans profile="jdbc">
         <context:component-scan base-package="ru.javawebinar.**.repository.jdbc"/>
-        <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-            <constructor-arg ref="dataSource"/>
-        </bean>
+        <!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">-->
+            <!--<constructor-arg ref="dataSource"/>-->
+        <!--</bean>-->
 
-        <bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-            <constructor-arg ref="dataSource"/>
+        <!--<bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">-->
+            <!--<constructor-arg ref="dataSource"/>-->
+        <!--</bean>-->
+        <bean id="dataSourceTransactionManager"
+              class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+              p:dataSource-ref="dataSource" factory-bean="dataSource">
         </bean>
     </beans>
 

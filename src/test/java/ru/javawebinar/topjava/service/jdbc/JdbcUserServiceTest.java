@@ -1,5 +1,7 @@
 package ru.javawebinar.topjava.service.jdbc;
 
+import org.junit.Ignore;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.test.context.ActiveProfiles;
@@ -20,6 +22,8 @@ public class JdbcUserServiceTest extends AbstractUserServiceTest {
     }
 
     @Override
+    @Test
+    @Ignore("JDBC")
     public void testValidation() throws Exception {
     }
 }

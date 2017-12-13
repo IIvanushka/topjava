@@ -7,11 +7,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
@@ -25,14 +25,17 @@ public class JdbcUserRepositoryImpl implements UserRepository {
 
     private final SimpleJdbcInsert insertUser;
 
+    private DataSourceTransactionManager transactionManager;
+
     @Autowired
-    public JdbcUserRepositoryImpl(DataSource dataSource, JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
-        this.insertUser = new SimpleJdbcInsert(dataSource)
+    public JdbcUserRepositoryImpl(DataSourceTransactionManager transactionManager) {
+        this.transactionManager = transactionManager;
+        this.insertUser = new SimpleJdbcInsert(transactionManager.getDataSource())
                 .withTableName("users")
                 .usingGeneratedKeyColumns("id");
 
-        this.jdbcTemplate = jdbcTemplate;
-        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+        this.jdbcTemplate = new JdbcTemplate(transactionManager.getDataSource());
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(transactionManager.getDataSource());
     }
 
     @Override
