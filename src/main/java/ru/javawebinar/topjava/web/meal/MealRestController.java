@@ -81,4 +81,8 @@ public class MealRestController {
                 AuthorizedUser.getCaloriesPerDay()
         );
     }
+
+    public Meal getWithUser(int id){
+        return service.getWithUser(id, AuthorizedUser.id());
+    }
 }

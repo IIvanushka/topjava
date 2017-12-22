@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
+import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.to.MealWithExceed;
@@ -18,7 +19,7 @@ public class SpringMain {
         // java 7 Automatic resource management
         try (GenericXmlApplicationContext appCtx = new GenericXmlApplicationContext()) {
             appCtx.getEnvironment().setActiveProfiles(Profiles.getActiveDbProfile(), Profiles.REPOSITORY_IMPLEMENTATION);
-            appCtx.load("spring/spring-app.xml", "spring/spring-db.xml");
+            appCtx.load("spring/spring-app.xml", "spring/spring-db.xml", "spring/mock.xml");
             appCtx.refresh();
 
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
@@ -32,6 +33,12 @@ public class SpringMain {
                             LocalDate.of(2015, Month.MAY, 30), LocalTime.of(7, 0),
                             LocalDate.of(2015, Month.MAY, 31), LocalTime.of(11, 0));
             filteredMealsWithExceeded.forEach(System.out::println);
+
+
+
+            Meal meal = mealController.getWithUser(100003);
+            System.out.println();
+            System.out.println(meal);
         }
     }
 }
