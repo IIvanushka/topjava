@@ -9,7 +9,8 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.to.MealWithExceed;
 
 import java.net.URI;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -56,13 +57,30 @@ public class MealRestController extends AbstractMealController {
 
     @GetMapping(value = "/filtered", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    public List<MealWithExceed> getBetween(@RequestParam("start") String start, @RequestParam("end") String end) {
+    public List<MealWithExceed> getBetween(@RequestParam(value = "startDate", required = false) String startDate,
+                                           @RequestParam(value = "startTime", required = false) String startTime,
+                                           @RequestParam(value = "endDate", required = false) String endDate,
+                                           @RequestParam(value = "endTime", required = false) String endTime) {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalDate startDateLD = LocalDate.MIN;
+        LocalDate endDateLD = null;
+        LocalTime startTimeLT = LocalTime.MIN;
+        LocalTime endTimeLT = null;
 
-        LocalDateTime startDate = LocalDateTime.parse(start, formatter);
-        LocalDateTime endDate = LocalDateTime.parse(end, formatter);
-
-        return super.getBetween(startDate.toLocalDate(), startDate.toLocalTime(), endDate.toLocalDate(), endDate.toLocalTime());
+        if (startDate != null) {
+            startDateLD = LocalDate.parse(startDate, dateFormatter);
+        }
+        if (endDate != null) {
+            endDateLD = LocalDate.parse(endDate, dateFormatter);
+        }
+        if (startTime != null) {
+            startTimeLT = LocalTime.parse(startTime, timeFormatter);
+        }
+        if (endTime != null) {
+            endTimeLT = LocalTime.parse(endTime, timeFormatter);
+        }
+        return super.getBetween(startDateLD, startTimeLT, endDateLD, endTimeLT);
     }
 }

@@ -11,7 +11,8 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.web.AbstractControllerTest;
 import ru.javawebinar.topjava.web.json.JsonUtil;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
 import java.util.Arrays;
 
@@ -93,11 +94,15 @@ public class MealRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetBetween() throws Exception {
-        LocalDateTime start = of(2015, Month.MAY, 30, 11, 0);
-        LocalDateTime end = of(2017, Month.DECEMBER, 20, 23, 0);
+        LocalDate startD = LocalDate.of(2015, Month.MAY, 31);
+        LocalDate endD = null; //= LocalDate.of(2015, Month.MAY, 31);
+        LocalTime startT = LocalTime.of(12, 00);
+        LocalTime endT = null; // = LocalTime.of(20, 23);
         MultiValueMap<String, String> valueMap = new LinkedMultiValueMap<>();
-        valueMap.add("start", start.toString());
-        valueMap.add("end", end.toString());
+        valueMap.add("startDate", startD.toString());
+        valueMap.add("startTime", startT.toString());
+        valueMap.add("endDate", null);
+//        valueMap.add("endTime", null);
 
         mockMvc.perform(get(REST_URL + "/filtered")
                 .contentType(MediaType.APPLICATION_JSON)
