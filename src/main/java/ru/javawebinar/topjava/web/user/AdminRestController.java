@@ -32,6 +32,7 @@ public class AdminRestController extends AbstractUserController {
         User created = super.create(user);
 
 //        HttpHeaders httpHeaders = new HttpHeaders();
+
 //        httpHeaders.setLocation(uriOfNewResource);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
