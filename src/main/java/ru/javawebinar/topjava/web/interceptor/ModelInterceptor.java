@@ -21,4 +21,13 @@ public class ModelInterceptor extends HandlerInterceptorAdapter {
             }
         }
     }
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        System.out.println("-------------------------------------------------------------");
+        System.out.println(request.getRequestURL());
+        response.getHeaderNames().forEach(System.out::println);
+        System.out.println("-------------------------------------------------------------");
+        return super.preHandle(request, response, handler);
+    }
 }
